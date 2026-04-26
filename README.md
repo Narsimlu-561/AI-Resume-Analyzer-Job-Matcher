@@ -1,6 +1,6 @@
 # 🚀 AI Resume Analyzer & Job Matcher
 
-An AI-powered full-stack web application that analyzes resumes, extracts skills dynamically, and recommends suitable IT job roles.
+AI Resume Analyzer & Job Matcher is a MERN-based application that uses intelligent text processing to extract skills from resumes and match them with relevant job roles. The system evaluates resumes using an ATS scoring mechanism and provides actionable insights for improvement.
 
 ---
 # 🌐 Live Demo  
