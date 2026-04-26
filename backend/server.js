@@ -25,7 +25,7 @@ const app = express();
 
 // ===== CORS =====
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 
@@ -46,20 +46,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'AI Resume Analyzer API is running' });
 });
 
-// ===== SERVE FRONTEND (FIXED FOR RENDER) =====
+// ===== SERVE FRONTEND =====
 const frontendPath = path.join(__dirname, "../frontend/dist");
 
 app.use(express.static(frontendPath));
 
-// Express 5 safe fallback
+// React fallback (IMPORTANT)
 app.use((req, res, next) => {
   if (req.path.startsWith("/api")) return next();
   res.sendFile(path.join(frontendPath, "index.html"));
-});
-
-// 👇 DO NOT USE app.get("*") in Express 5
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 // ===== ERROR HANDLING =====
