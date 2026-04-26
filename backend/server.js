@@ -46,8 +46,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'AI Resume Analyzer API is running' });
 });
 
-// ===== SERVE FRONTEND (IMPORTANT FIX FOR EXPRESS 5) =====
-app.use(express.static(path.join(__dirname, "dist")));
+// ===== SERVE FRONTEND (FIXED FOR RENDER) =====
+const frontendPath = path.join(__dirname, "../frontend/dist");
+
+app.use(express.static(frontendPath));
+
+// Express 5 safe fallback
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 // 👇 DO NOT USE app.get("*") in Express 5
 app.use((req, res) => {
